@@ -118,7 +118,7 @@ app.post(
       */
 
       if (!paymentId || !ambaganId || !userId) {
-        console.error("Missing payment metadata");
+        console.log("No Tara, Ambagan metadata found. Ignoring test event.");
 
         return res.sendStatus(400);
       }
