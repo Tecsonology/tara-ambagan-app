@@ -1,18 +1,55 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+// app/_layout.tsx
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { Stack } from "expo-router";
 
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <Stack>
+      <Stack.Screen
+        name="(tabs)"
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="Ambag/[id]"
+        options={{
+          title: "Ambagan",
+        }}
+      />
+
+      <Stack.Screen
+        name="login"
+        options={{
+          title: "login",
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="register"
+        options={{
+          title: "register",
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="addAmbagan"
+        options={{
+          title: "Create Amabagan",
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="seachAmbagan"
+        options={{
+          title: "Search Ambagan",
+          headerShown: false,
+        }}
+      />
+    </Stack>
   );
 }
