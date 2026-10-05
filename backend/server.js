@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
+const Ambagan = require("./models/ambaganModel");
+
 const ambaganRoutes = require("./routes/ambaganRoutes");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
@@ -180,13 +182,34 @@ app.post(
 
       await payment.save();
 
-      console.log("Payment successfully marked as PAID:", paymentId);
+      // ==============================
+      // UPDATE AMBAGAN AMOUNT
+      // ==============================
 
-      /*
-      ==================================================
-      SUCCESS
-      ==================================================
-      */
+      const ambagan = await Ambagan.findById(ambaganId);
+
+      if (!ambagan) {
+        console.error("Ambagan not found:", ambaganId);
+        return res.sendStatus(404);
+      }
+
+      ambagan.currentAmount += payment.amount;
+
+      ambagan.contributors.push({
+        user: userId,
+        amount: payment.amount,
+      });
+
+      await ambagan.save();
+
+      console.log(
+        "Ambagan amount updated:",
+        ambagan._id,
+        "New amount:",
+        ambagan.currentAmount,
+      );
+
+      console.log("Payment successfully marked as PAID:", paymentId);
 
       return res.sendStatus(200);
     } catch (error) {
