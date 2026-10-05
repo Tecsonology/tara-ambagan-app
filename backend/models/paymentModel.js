@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const paymentSchema = new mongoose.Schema(
   {
+    paymongoPaymentId: { type: String },
+
     ambagan: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Ambagan",
