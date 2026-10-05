@@ -101,4 +101,17 @@ router.post("/create-checkout", async (req, res) => {
   }
 });
 
+router.post("/paymongo-webhook", async (req, res) => {
+  try {
+    console.log("========== PAYMONGO WEBHOOK ==========");
+
+    console.log(JSON.stringify(req.body, null, 2));
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error("Webhook error:", error);
+    res.sendStatus(500);
+  }
+});
+
 module.exports = router;
